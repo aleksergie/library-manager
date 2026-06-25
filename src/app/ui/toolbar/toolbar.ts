@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
+import { LibraryControllerService } from '../../domain/data-access/library-controller';
 
 @Component({
   selector: 'app-toolbar',
@@ -31,8 +32,13 @@ import { Component } from '@angular/core';
   styleUrls: ['./toolbar.scss']
 })
 export class Toolbar {
-  protected onFileSelected(event: Event) {
+  readonly controller = inject(LibraryControllerService);
+
+  protected async onFileSelected(event: Event) {
     const input = event.target as HTMLInputElement;
-    console.log(input.files)
+    if (input.files && input.files.length > 0) {
+      await this.controller.importLibrary(input.files[0])
+    }
+
   }
 }
