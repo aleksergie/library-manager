@@ -1,1 +1,29 @@
-/* You can add global styles to this file, and also import other style files */
+@layer reset, base;
+
+@layer reset {
+
+    *,
+    *::before,
+    *::after {
+        box-sizing: border-box;
+    }
+
+    html,
+    body {
+        margin: 0;
+        padding: 0;
+    }
+}
+
+@layer base {
+    :root {
+        --bg-surface: #1e293b;
+        --bg-surface-hover: #334155;
+        --text: #94a3b8;
+        --accent-color: #38bdf8;
+        --border-color: rgba(255, 255, 255, 0.1);
+        --border-radius: 12px;
+        --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        --shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.5), 0 4px 6px -4px rgba(0, 0, 0, 0.5);
+    }
+}
