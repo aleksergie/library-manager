@@ -1,5 +1,6 @@
 import { Component, inject } from "@angular/core";
 import { LibraryControllerService } from "../../domain/data-access/library-controller";
+import { Book } from "../../domain/models";
 
 @Component({
     selector: 'app-books-list',
@@ -16,6 +17,10 @@ import { LibraryControllerService } from "../../domain/data-access/library-contr
                   <span class="badge">{{ book.pages }} pages</span>
                 </div>
               </div>
+               <div class="book-actions">
+                <button class="btn btn-icon" (click)="editBook(book)" title="Edit">✎</button>
+                <button class="btn btn-icon btn-danger" (click)="removeBook(book.id)" title="Remove">✕</button>
+              </div>
             </div>
           }
         </div>
@@ -24,4 +29,10 @@ import { LibraryControllerService } from "../../domain/data-access/library-contr
 })
 export class BooksList {
     readonly libraryController = inject(LibraryControllerService)
+
+    protected editBook(book: Book): void {
+    }
+
+    protected removeBook(id: string): void {
+    }
 }
