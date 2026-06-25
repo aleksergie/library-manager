@@ -16,6 +16,7 @@ import { LibraryControllerService } from '../../domain/data-access/library-contr
           type="search" 
           placeholder="Search by title..." 
           class="search-input"
+          (input)="onSearch($event)"
         />
         
         <div class="divider"></div>
@@ -33,6 +34,11 @@ import { LibraryControllerService } from '../../domain/data-access/library-contr
 })
 export class Toolbar {
   readonly controller = inject(LibraryControllerService);
+
+  protected onSearch(event: Event) {
+    const input = event.target as HTMLInputElement;
+    this.controller.search(input.value);
+  }
 
   protected async onFileSelected(event: Event) {
     const input = event.target as HTMLInputElement;

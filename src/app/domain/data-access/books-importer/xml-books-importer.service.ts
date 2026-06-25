@@ -2,7 +2,7 @@ import { Injectable } from "@angular/core";
 import { BooksImporter } from "../../models";
 
 @Injectable()
-export class BooksImporterService implements BooksImporter {
+export class XmlBooksImporterService implements BooksImporter {
     async importFromFile(file: File): Promise<any> {
         const text = await this.readFileAsText(file);
         const parser = new DOMParser();

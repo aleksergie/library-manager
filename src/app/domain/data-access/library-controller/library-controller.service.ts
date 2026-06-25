@@ -18,11 +18,15 @@ export class LibraryControllerService {
         for (const b of result) {
             validBooks.push({
                 id: crypto.randomUUID(),
-                title: b.title.trim(),
-                author: b.author.trim(),
-                pages: b.pages as number
+                title: b.title,
+                author: b.author,
+                pages: b.pages
             });
         }
         this.store.setBooks(validBooks);
+    }
+
+    search(query: string): void {
+        this.store.setSearchQuery(query);
     }
 }
