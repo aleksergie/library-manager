@@ -1,5 +1,5 @@
 import { Book } from "./book";
 
 export interface BooksExporter {
-    exportBooks(books: Book[]): void;
+    exportBooks(books: Book[]): Blob;
 }

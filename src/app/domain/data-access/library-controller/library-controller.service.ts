@@ -1,5 +1,5 @@
 import { inject, Injectable } from "@angular/core";
-import { BOOKS_IMPORTER } from "../../tokens";
+import { BOOKS_EXPORTER, BOOKS_IMPORTER } from "../../tokens";
 import { LibraryStore } from "../library-store/library-store.service";
 import { Book } from "../../models";
 
@@ -7,6 +7,7 @@ import { Book } from "../../models";
 export class LibraryControllerService {
     private readonly store = inject(LibraryStore);
     private readonly booksImporter = inject(BOOKS_IMPORTER);
+    private readonly booksExporter = inject(BOOKS_EXPORTER);
 
     readonly filteredBooks = this.store.filteredBooks;
     readonly isSorted = this.store.isSorted;
@@ -54,5 +55,18 @@ export class LibraryControllerService {
     }
 
     public exportLibrary(): void {
+        const blob = this.booksExporter.exportBooks(this.store.filteredBooks());
+        this.triggerDownload(blob, 'library.xml');
+    }
+
+    private triggerDownload(blob: Blob, fileName: string): void {
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = fileName;
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        URL.revokeObjectURL(url);
     }
 }
