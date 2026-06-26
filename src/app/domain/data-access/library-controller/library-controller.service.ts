@@ -43,4 +43,8 @@ export class LibraryControllerService {
     public removeBook(id: string): void {
         this.store.removeBook(id);
     }
+
+    public updateBook(input: Book): void {
+        this.store.updateBook(input);
+    }
 }

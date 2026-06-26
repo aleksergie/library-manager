@@ -66,10 +66,12 @@ export class BookModal {
   readonly form = this.fb.group({
     title: ['', [Validators.required, Validators.maxLength(500)]],
     author: ['', [Validators.required, Validators.maxLength(200)]],
-    pages: [null as number | null, [Validators.required, Validators.min(1), Validators.max(10000)]]
+    pages: [0, [Validators.required, Validators.min(1), Validators.max(10000)]]
   });
 
   public open(book: Book) {
+    this.editingId.set(book.id);
+    this.isEditing.set(true)
     this.form.patchValue({
       title: book.title,
       author: book.author,
@@ -85,6 +87,19 @@ export class BookModal {
   }
 
   public onSubmit() {
+    const modalData: Book = {
+      id: this.editingId() as string,
+      title: this.form.value.title || '',
+      author: this.form.value.author || '',
+      pages: this.form.value.pages as number
+    };
+
+    if (this.isEditing() && this.editingId()) {
+      this.controller.updateBook(modalData);
+    } else {
+      this.controller.addBook(modalData);
+    }
+
     this.close();
   }
 }
