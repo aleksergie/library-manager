@@ -1,10 +1,11 @@
 import { Component, inject } from '@angular/core';
 import { LibraryControllerService } from '../../domain/data-access/library-controller';
+import { BookModal } from '../book-modal/book-modal';
 
 @Component({
   selector: 'app-toolbar',
   standalone: true,
-  imports: [],
+  imports: [BookModal],
   template: `
     <header class="toolbar">
       <div class="logo">
@@ -18,6 +19,10 @@ import { LibraryControllerService } from '../../domain/data-access/library-contr
           class="search-input"
           (input)="onSearch($event)"
         />
+
+        <button class="btn btn-primary" (click)="formModal.open()">
+          <span class="icon">+</span> Add Book
+        </button>
         
         <div class="divider"></div>
 
@@ -28,6 +33,8 @@ import { LibraryControllerService } from '../../domain/data-access/library-contr
           </label>
         </div>
       </div>
+
+    <app-book-form #formModal></app-book-form>
     </header>
   `,
   styleUrls: ['./toolbar.scss']

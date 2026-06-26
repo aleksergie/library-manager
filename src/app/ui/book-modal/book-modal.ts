@@ -69,16 +69,21 @@ export class BookModal {
     pages: [0, [Validators.required, Validators.min(1), Validators.max(10000)]]
   });
 
-  public open(book: Book) {
-    this.editingId.set(book.id);
-    this.isEditing.set(true)
-    this.form.patchValue({
-      title: book.title,
-      author: book.author,
-      pages: book.pages
-    });
+  public open(book?: Book) {
+    if (book) {
+      this.editingId.set(book.id);
+      this.isEditing.set(true)
+      this.form.patchValue({
+        title: book.title,
+        author: book.author,
+        pages: book.pages
+      });
+    } else {
+      this.isEditing.set(false);
+      this.editingId.set(null);
+      this.form.reset();
+    }
 
-    this.isEditing.set(true);
     this.dialog.nativeElement.showModal();
   }
 
