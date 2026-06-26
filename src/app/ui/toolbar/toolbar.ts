@@ -20,17 +20,17 @@ import { BookModal } from '../book-modal/book-modal';
           (input)="onSearch($event)"
         />
 
-        <button class="btn btn-primary" (click)="formModal.open()">
-          <span class="icon">+</span> Add Book
-        </button>
-
-        <button class="btn btn-outline" (click)="toggleSort()">
+        <button class="btn btn-outline" (click)="toggleSort()" [class.active]="isSorted()">
           <span class="icon">↕</span> Sort
         </button>
         
         <div class="divider"></div>
 
         <div class="file-actions">
+           <button class="btn btn-primary" (click)="formModal.open()">
+          <span class="icon">+</span> Add Book
+        </button>
+
           <label class="btn btn-outline">
             <span class="icon">↑</span> Import
               <input type="file" accept=".xml" (change)="onFileSelected($event)" hidden />
@@ -47,7 +47,9 @@ import { BookModal } from '../book-modal/book-modal';
   styleUrls: ['./toolbar.scss']
 })
 export class Toolbar {
-  readonly controller = inject(LibraryControllerService);
+  private controller = inject(LibraryControllerService);
+
+  readonly isSorted = this.controller.isSorted
 
   protected onSearch(event: Event) {
     const input = event.target as HTMLInputElement;
@@ -62,10 +64,10 @@ export class Toolbar {
   }
 
   protected toggleSort(): void {
-
+    this.controller.toggleSorting()
   }
 
   protected exportLibrary(): void {
-
+    this.controller.exportLibrary()
   }
 }

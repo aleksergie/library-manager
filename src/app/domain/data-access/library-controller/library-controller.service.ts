@@ -9,6 +9,7 @@ export class LibraryControllerService {
     private readonly booksImporter = inject(BOOKS_IMPORTER);
 
     readonly filteredBooks = this.store.filteredBooks;
+    readonly isSorted = this.store.isSorted;
 
     async importLibrary(file: File): Promise<any> {
         const result = await this.booksImporter.importFromFile(file);
@@ -46,5 +47,12 @@ export class LibraryControllerService {
 
     public updateBook(input: Book): void {
         this.store.updateBook(input);
+    }
+
+    public toggleSorting(): void {
+        this.store.toggleSort()
+    }
+
+    public exportLibrary(): void {
     }
 }
