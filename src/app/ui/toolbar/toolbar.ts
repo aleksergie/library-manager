@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, computed, inject } from '@angular/core';
 import { LibraryControllerService } from '../../domain/data-access/library-controller';
 import { BookModal } from '../book-modal/book-modal';
 
@@ -17,10 +17,11 @@ import { BookModal } from '../book-modal/book-modal';
           type="search" 
           placeholder="Search by title..." 
           class="search-input"
+          [disabled]="isEmpty()"
           (input)="onSearch($event)"
         />
 
-        <button class="btn btn-outline" (click)="toggleSort()" [class.active]="isSorted()">
+        <button class="btn btn-outline" (click)="toggleSort()" [disabled]="isEmpty()" [class.active]="isSorted()">
           <span class="icon">↕</span> Sort
         </button>
         
@@ -35,7 +36,7 @@ import { BookModal } from '../book-modal/book-modal';
             <span class="icon">↑</span> Import
               <input type="file" accept=".xml" (change)="onFileSelected($event)" hidden />
           </label>
-          <button class="btn btn-outline" (click)="exportLibrary()">
+          <button class="btn btn-outline" [disabled]="isEmpty()" (click)="exportLibrary()">
             <span class="icon">↓</span> Export
           </button>
         </div>
@@ -50,6 +51,7 @@ export class Toolbar {
   private controller = inject(LibraryControllerService);
 
   readonly isSorted = this.controller.isSorted
+  readonly isEmpty = computed(() => !this.controller.filteredBooks().length)
 
   protected onSearch(event: Event) {
     const input = event.target as HTMLInputElement;
