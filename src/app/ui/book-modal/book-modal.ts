@@ -5,10 +5,10 @@ import { Book } from "../../domain/models";
 import { LibraryControllerService } from "../../domain/data-access/library-controller";
 
 @Component({
-    selector: 'app-book-form',
-    standalone: true,
-    imports: [ReactiveFormsModule, CommonModule],
-    template: `<dialog #dialog class="modal">
+  selector: 'app-book-form',
+  standalone: true,
+  imports: [ReactiveFormsModule, CommonModule],
+  template: `<dialog #dialog class="modal">
       <div class="modal-content">
         <div class="modal-header">
           <h2>{{ isEditing() ? 'Edit Book' : 'Add Book' }}</h2>
@@ -53,32 +53,38 @@ import { LibraryControllerService } from "../../domain/data-access/library-contr
         </form>
       </div>
     </dialog>`,
-    styleUrl: './book-modal.scss'
+  styleUrl: './book-modal.scss'
 })
 export class BookModal {
-    @ViewChild('dialog') dialog!: ElementRef<HTMLDialogElement>;
-    private readonly controller = inject(LibraryControllerService);
-    private readonly fb = inject(FormBuilder);
+  @ViewChild('dialog') dialog!: ElementRef<HTMLDialogElement>;
+  private readonly controller = inject(LibraryControllerService);
+  private readonly fb = inject(FormBuilder);
 
-    isEditing = signal(false);
-    editingId = signal<string | null>(null);
+  readonly isEditing = signal(false);
+  readonly editingId = signal<string | null>(null);
 
-    form = this.fb.group({
-        title: ['', [Validators.required, Validators.maxLength(500)]],
-        author: ['', [Validators.required, Validators.maxLength(200)]],
-        pages: [null as number | null, [Validators.required, Validators.min(1), Validators.max(10000)]]
+  readonly form = this.fb.group({
+    title: ['', [Validators.required, Validators.maxLength(500)]],
+    author: ['', [Validators.required, Validators.maxLength(200)]],
+    pages: [null as number | null, [Validators.required, Validators.min(1), Validators.max(10000)]]
+  });
+
+  public open(book: Book) {
+    this.form.patchValue({
+      title: book.title,
+      author: book.author,
+      pages: book.pages
     });
 
-    open(book: Book) {
-        this.isEditing.set(true);
-        this.dialog.nativeElement.showModal();
-    }
+    this.isEditing.set(true);
+    this.dialog.nativeElement.showModal();
+  }
 
-    close() {
-        this.dialog.nativeElement.close();
-    }
+  public close() {
+    this.dialog.nativeElement.close();
+  }
 
-    onSubmit() {
-        this.close();
-    }
+  public onSubmit() {
+    this.close();
+  }
 }
