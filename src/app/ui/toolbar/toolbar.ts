@@ -59,9 +59,16 @@ export class Toolbar {
 
   protected async onFileSelected(event: Event) {
     const input = event.target as HTMLInputElement;
-    if (input.files && input.files.length > 0) {
-      await this.controller.importLibrary(input.files[0])
+    try {
+      if (input.files && input.files.length > 0) {
+        await this.controller.importLibrary(input.files[0])
+      }
+    } catch (err) {
+      console.error('Import failed', err);
+    } finally {
+      this.resetInputValue(input);
     }
+
   }
 
   protected toggleSort(): void {
@@ -70,5 +77,9 @@ export class Toolbar {
 
   protected exportLibrary(): void {
     this.controller.exportLibrary()
+  }
+
+  private resetInputValue(input: HTMLInputElement): void {
+    input.value = '';
   }
 }
