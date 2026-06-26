@@ -10,7 +10,7 @@
     box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
 
     &::backdrop {
-        background: rgba(108, 119, 147, 0.8);
+        background: rgb(88 98 123 / 50%);
         backdrop-filter: blur(3px);
     }
 }

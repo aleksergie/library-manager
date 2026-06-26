@@ -4,10 +4,17 @@ import { Book } from "../../domain/models";
 import { BookModal } from "../book-modal/book-modal";
 
 @Component({
-    selector: 'app-books-list',
-    standalone: true,
-    imports: [BookModal],
-    template: `<div class="books-container">
+  selector: 'app-books-list',
+  standalone: true,
+  imports: [BookModal],
+  template: `<div class="books-container">
+    @if (libraryController.filteredBooks().length === 0) {
+        <div class="empty-state">
+          <div class="empty-icon">📚</div>
+          <h2>No books found</h2>
+          <p>Try to import from external file, add manually or adjust search query</p>
+        </div>
+      } @else {
         <div class="books-grid">
                     @for (book of libraryController.filteredBooks(); track book.id) {
             <div class="book-card">
@@ -23,21 +30,22 @@ import { BookModal } from "../book-modal/book-modal";
                 <button class="btn btn-icon btn-danger" (click)="removeBook(book.id)" title="Remove">✕</button>
               </div>
             </div>
-          }
+              }
         </div>
+          }
     </div>
     <app-book-form #editModal></app-book-form>
     `,
-    styleUrl: './books-list.scss'
+  styleUrl: './books-list.scss'
 })
 export class BooksList {
-    readonly libraryController = inject(LibraryControllerService)
+  readonly libraryController = inject(LibraryControllerService)
 
-    protected editBook(book: Book, editModal: BookModal): void {
-        editModal.open(book);
-    }
+  protected editBook(book: Book, editModal: BookModal): void {
+    editModal.open(book);
+  }
 
-    protected removeBook(id: string): void {
-        this.libraryController.removeBook(id)
-    }
+  protected removeBook(id: string): void {
+    this.libraryController.removeBook(id)
+  }
 }

@@ -1,3 +1,26 @@
+.empty-state {
+    text-align: center;
+    padding: 4rem 2rem;
+    background: var(--bg-surface);
+    border-radius: var(--border-radius);
+    border: 2px dashed var(--border-color);
+
+    .empty-icon {
+        font-size: 4rem;
+        margin-bottom: 2rem;
+        opacity: 0.5;
+    }
+
+    h2 {
+        font-size: 1.5rem;
+        margin-bottom: 0.5rem;
+    }
+
+    p {
+        color: var(--text-secondary);
+    }
+}
+
 .books-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
@@ -36,7 +59,7 @@
     }
 
     .book-author {
-        color: var(--text);
+        color: var(--text-secondary);
         font-size: 0.9rem;
         margin-bottom: 1rem;
     }

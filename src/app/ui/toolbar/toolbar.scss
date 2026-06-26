@@ -3,7 +3,7 @@
     justify-content: space-between;
     align-items: center;
     padding: 1rem 2rem;
-    background: rgba(30, 41, 59, 0.7);
+    background: rgba(30, 41, 59);
     border-bottom: 1px solid var(--border-color);
     position: sticky;
     top: 0;
@@ -12,6 +12,10 @@
 .logo h1 {
     font-size: 1.5rem;
     font-weight: 700;
+    background: linear-gradient(135deg, #fff, var(--text-secondary));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin: 0;
 }
 
 .actions {
