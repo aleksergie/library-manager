@@ -1,11 +1,12 @@
 import { Component, inject } from "@angular/core";
 import { LibraryControllerService } from "../../domain/data-access/library-controller";
 import { Book } from "../../domain/models";
+import { BookModal } from "../book-modal/book-modal";
 
 @Component({
     selector: 'app-books-list',
     standalone: true,
-    imports: [],
+    imports: [BookModal],
     template: `<div class="books-container">
         <div class="books-grid">
                     @for (book of libraryController.filteredBooks(); track book.id) {
@@ -18,19 +19,22 @@ import { Book } from "../../domain/models";
                 </div>
               </div>
                <div class="book-actions">
-                <button class="btn btn-icon" (click)="editBook(book)" title="Edit">✎</button>
+                <button class="btn btn-icon" (click)="editBook(book, editModal)" title="Edit">✎</button>
                 <button class="btn btn-icon btn-danger" (click)="removeBook(book.id)" title="Remove">✕</button>
               </div>
             </div>
           }
         </div>
-    </div>`,
+    </div>
+    <app-book-form #editModal></app-book-form>
+    `,
     styleUrl: './books-list.scss'
 })
 export class BooksList {
     readonly libraryController = inject(LibraryControllerService)
 
-    protected editBook(book: Book): void {
+    protected editBook(book: Book, editModal: BookModal): void {
+        editModal.open(book);
     }
 
     protected removeBook(id: string): void {

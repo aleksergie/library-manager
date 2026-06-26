@@ -26,4 +26,12 @@ export class LibraryStore {
     public setSearchQuery(query: string): void {
         this.searchQuery.set(query);
     }
+
+    public addBook(book: Book): void {
+        this.books.update(books => [...books, book]);
+    }
+
+    public updateBook(updatedBook: Book): void {
+        this.books.update(books => books.map(book => book.id === updatedBook.id ? updatedBook : book));
+    }
 }

@@ -29,4 +29,14 @@ export class LibraryControllerService {
     search(query: string): void {
         this.store.setSearchQuery(query);
     }
+
+    addBook(input: any): void {
+        const book: Book = {
+            id: crypto.randomUUID(),
+            title: input.title.trim(),
+            author: input.author.trim(),
+            pages: input.pages
+        };
+        this.store.addBook(book);
+    }
 }
