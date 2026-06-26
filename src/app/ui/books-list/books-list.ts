@@ -38,5 +38,6 @@ export class BooksList {
     }
 
     protected removeBook(id: string): void {
+        this.libraryController.removeBook(id)
     }
 }

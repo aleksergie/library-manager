@@ -34,4 +34,8 @@ export class LibraryStore {
     public updateBook(updatedBook: Book): void {
         this.books.update(books => books.map(book => book.id === updatedBook.id ? updatedBook : book));
     }
+
+    public removeBook(id: string): void {
+        this.books.update(books => books.filter(book => book.id !== id));
+    }
 }

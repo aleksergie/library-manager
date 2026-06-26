@@ -39,4 +39,8 @@ export class LibraryControllerService {
         };
         this.store.addBook(book);
     }
+
+    public removeBook(id: string): void {
+        this.store.removeBook(id);
+    }
 }
