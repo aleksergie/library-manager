@@ -13,19 +13,11 @@ export class LibraryControllerService {
     readonly isSorted = this.store.isSorted;
 
     async importLibrary(file: File): Promise<any> {
-        const result = await this.booksImporter.importFromFile(file);
-        console.log(result)
+        const importResult: any[] = await this.booksImporter.importFromFile(file);
+        console.log(importResult)
 
-        const validBooks: Book[] = [];
-        for (const b of result) {
-            validBooks.push({
-                id: crypto.randomUUID(),
-                title: b.title,
-                author: b.author,
-                pages: b.pages
-            });
-        }
-        this.store.setBooks(validBooks);
+        const books = importResult.map((res) => Book.create(res))
+        this.store.setBooks(books);
     }
 
     search(query: string): void {
@@ -33,12 +25,7 @@ export class LibraryControllerService {
     }
 
     addBook(input: any): void {
-        const book: Book = {
-            id: crypto.randomUUID(),
-            title: input.title.trim(),
-            author: input.author.trim(),
-            pages: input.pages
-        };
+        const book = Book.create(input);
         this.store.addBook(book);
     }
 

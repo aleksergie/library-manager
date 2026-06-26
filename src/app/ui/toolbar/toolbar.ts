@@ -13,11 +13,10 @@ import { BookModal } from '../book-modal/book-modal';
       </div>
       
       <div class="actions">
-        <input 
+        <input
           type="search" 
           placeholder="Search by title..." 
           class="search-input"
-          [disabled]="isEmpty()"
           (input)="onSearch($event)"
         />
 
