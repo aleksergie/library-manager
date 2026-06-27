@@ -1,7 +1,7 @@
 import { inject, Injectable } from "@angular/core";
 import { BOOKS_EXPORTER, BOOKS_IMPORTER } from "../../tokens";
 import { LibraryStore } from "../library-store/library-store.service";
-import { Book } from "../../models";
+import { Book, BookInput, ImportResult } from "../../models";
 
 @Injectable({ providedIn: 'root' })
 export class LibraryControllerService {
@@ -12,19 +12,20 @@ export class LibraryControllerService {
     readonly filteredBooks = this.store.filteredBooks;
     readonly isSorted = this.store.isSorted;
 
-    async importLibrary(file: File): Promise<any> {
-        const importResult: any[] = await this.booksImporter.importFromFile(file);
-        console.log(importResult)
-
-        const books = importResult.map((res) => Book.create(res))
+    public async importLibrary(file: File): Promise<ImportResult> {
+        const importResult: ImportResult = await this.booksImporter.importFromFile(file);
+        console.log(importResult.books)
+        const books = importResult.books.map((res) => Book.create(res))
         this.store.setBooks(books);
+
+        return importResult;
     }
 
-    search(query: string): void {
+    public search(query: string): void {
         this.store.setSearchQuery(query);
     }
 
-    addBook(input: any): void {
+    public addBook(input: BookInput): void {
         const book = Book.create(input);
         this.store.addBook(book);
     }

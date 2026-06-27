@@ -1,3 +1,5 @@
+import { ImportResult } from "./book";
+
 export interface BooksImporter {
-    importFromFile(file: File): Promise<any>;
+    importFromFile(file: File): Promise<ImportResult>;
 }

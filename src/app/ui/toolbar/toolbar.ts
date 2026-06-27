@@ -57,18 +57,23 @@ export class Toolbar {
     this.controller.search(input.value);
   }
 
-  protected async onFileSelected(event: Event) {
+  protected async onFileSelected(event: Event): Promise<void> {
     const input = event.target as HTMLInputElement;
+
+    if (!input.files || !input.files.length) {
+      return;
+    }
+
     try {
-      if (input.files && input.files.length > 0) {
-        await this.controller.importLibrary(input.files[0])
+      const importResult = await this.controller.importLibrary(input.files[0]);
+      if (!importResult.books.length) {
+        throw new Error('Invalid file')
       }
     } catch (err) {
       console.error('Import failed', err);
     } finally {
       this.resetInputValue(input);
     }
-
   }
 
   protected toggleSort(): void {
