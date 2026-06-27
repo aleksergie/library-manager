@@ -40,3 +40,36 @@
     display: flex;
     gap: 0.5rem;
 }
+
+[popover].popover {
+    position: fixed;
+    inset: auto;
+    top: 5rem;
+    right: 2rem;
+    margin: 0;
+    background: rgba(30, 41, 59, 0.85);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-left: 4px solid var(--danger-color);
+    padding: 1.25rem 1.5rem;
+    border-radius: 12px;
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5), 0 8px 10px -6px rgba(0, 0, 0, 0.3);
+    color: var(--text-primary);
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    opacity: 0;
+    transform: translateX(20px);
+    transition: opacity 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+[popover].popover:popover-open {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+[popover].popover::backdrop {
+    background: transparent;
+}

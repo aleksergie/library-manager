@@ -1,4 +1,4 @@
-import { Component, computed, inject } from '@angular/core';
+import { Component, computed, ElementRef, inject, Signal, signal, viewChild, WritableSignal } from '@angular/core';
 import { LibraryControllerService } from '../../domain/data-access/library-controller';
 import { BookModal } from '../book-modal/book-modal';
 
@@ -40,17 +40,23 @@ import { BookModal } from '../book-modal/book-modal';
           </button>
         </div>
       </div>
+      <div #importPopover popover="manual" class="popover">
+        <span class="popover-content">{{ popoverMessage() }}</span>
+      </div>
 
-    <app-book-form #formModal></app-book-form>
     </header>
+    <app-book-form #formModal></app-book-form>
   `,
   styleUrls: ['./toolbar.scss']
 })
 export class Toolbar {
+  private readonly popoverElement: Signal<ElementRef<HTMLDivElement>> = viewChild.required('importPopover');
   private controller = inject(LibraryControllerService);
 
   readonly isSorted = this.controller.isSorted
   readonly isEmpty = computed(() => !this.controller.filteredBooks().length)
+  readonly popoverMessage = signal<string>('');
+  private popoverTimeout: ReturnType<typeof setTimeout> | null = null;
 
   protected onSearch(event: Event) {
     const input = event.target as HTMLInputElement;
@@ -70,7 +76,7 @@ export class Toolbar {
         throw new Error('Invalid file')
       }
     } catch (err) {
-      console.error('Import failed', err);
+      this.showPopover('Invalid file. Please try to import non-empty and valid one.')
     } finally {
       this.resetInputValue(input);
     }
@@ -82,6 +88,21 @@ export class Toolbar {
 
   protected exportLibrary(): void {
     this.controller.exportLibrary()
+  }
+
+  private showPopover(message: string): void {
+    this.popoverMessage.set(message);
+    const popover = this.popoverElement().nativeElement;
+
+    popover.showPopover();
+
+    if (this.popoverTimeout) {
+      clearTimeout(this.popoverTimeout)
+    };
+
+    this.popoverTimeout = setTimeout(() => {
+      popover.hidePopover();
+    }, 4000);
   }
 
   private resetInputValue(input: HTMLInputElement): void {
