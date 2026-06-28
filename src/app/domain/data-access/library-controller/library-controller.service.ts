@@ -37,8 +37,8 @@ export class LibraryControllerService {
         this.store.removeBook(id);
     }
 
-    public updateBook(input: Book): void {
-        this.store.updateBook(input);
+    public updateBook(input: BookInput, id: string): void {
+        this.store.updateBook(input, id);
     }
 
     public toggleSorting(): void {

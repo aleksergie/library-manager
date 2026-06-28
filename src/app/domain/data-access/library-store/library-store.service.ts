@@ -39,7 +39,7 @@ export class LibraryStore {
         this._books.update(books => [...books, book]);
     }
 
-    public updateBook(updatedBook: Book): void {
+    public updateBook(updatedBook: Book, id: string): void {
         this._books.update(books => books.map(book => book.id === updatedBook.id ? updatedBook : book));
     }
 

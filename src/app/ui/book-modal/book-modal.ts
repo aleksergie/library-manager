@@ -1,7 +1,7 @@
 import { CommonModule } from "@angular/common";
-import { Component, ElementRef, inject, signal, ViewChild } from "@angular/core";
-import { FormBuilder, ReactiveFormsModule, Validators } from "@angular/forms";
-import { Book } from "../../domain/models";
+import { Component, ElementRef, inject, Signal, signal, viewChild, ViewChild, WritableSignal } from "@angular/core";
+import { FormBuilder, FormsModule, ReactiveFormsModule, Validators } from "@angular/forms";
+import { Book, BookInput } from "../../domain/models";
 import { LibraryControllerService } from "../../domain/data-access/library-controller";
 
 @Component({
@@ -56,12 +56,12 @@ import { LibraryControllerService } from "../../domain/data-access/library-contr
   styleUrl: './book-modal.scss'
 })
 export class BookModal {
-  @ViewChild('dialog') dialog!: ElementRef<HTMLDialogElement>;
   private readonly controller = inject(LibraryControllerService);
   private readonly fb = inject(FormBuilder);
 
+  readonly dialog: Signal<ElementRef<HTMLDialogElement>> = viewChild.required('dialog');
   readonly isEditing = signal(false);
-  readonly editingId = signal<string | null>(null);
+  readonly editingId = signal<string>('');
 
   readonly form = this.fb.group({
     title: ['', [Validators.required, Validators.maxLength(500)]],
@@ -77,18 +77,18 @@ export class BookModal {
         title: book.title,
         author: book.author,
         pages: book.pages
-      });
+      } as BookInput);
     } else {
       this.isEditing.set(false);
-      this.editingId.set(null);
+      this.editingId.set('');
       this.form.reset();
     }
 
-    this.dialog.nativeElement.showModal();
+    this.dialog().nativeElement.showModal();
   }
 
   public close() {
-    this.dialog.nativeElement.close();
+    this.dialog().nativeElement.close();
   }
 
   public onSubmit() {
@@ -100,9 +100,9 @@ export class BookModal {
     };
 
     if (this.isEditing() && this.editingId()) {
-      this.controller.updateBook(modalData);
+      this.controller.updateBook(modalData as BookInput, this.editingId());
     } else {
-      this.controller.addBook(modalData);
+      this.controller.addBook(modalData as BookInput);
     }
 
     this.close();
