@@ -66,20 +66,11 @@ export class Toolbar {
   protected async onFileSelected(event: Event): Promise<void> {
     const input = event.target as HTMLInputElement;
 
-    if (!input.files || !input.files.length) {
+    if (!input?.files || !input?.files.length) {
       return;
     }
 
-    try {
-      const importResult = await this.controller.importLibrary(input.files[0]);
-      if (!importResult.books.length) {
-        throw new Error('Invalid file')
-      }
-    } catch (err) {
-      this.showPopover('Invalid file. Please try to import non-empty one.')
-    } finally {
-      this.resetInputValue(input);
-    }
+    this.initImport(input);
   }
 
   protected toggleSort(): void {
@@ -107,5 +98,18 @@ export class Toolbar {
 
   private resetInputValue(input: HTMLInputElement): void {
     input.value = '';
+  }
+
+  private async initImport(input: HTMLInputElement): Promise<void> {
+    try {
+      const importResult = await this.controller.importLibrary(input.files![0]);
+      if (!importResult.books.length) {
+        throw new Error('Invalid file')
+      }
+    } catch (err) {
+      this.showPopover('Invalid file. Please try to import non-empty one.')
+    } finally {
+      this.resetInputValue(input);
+    }
   }
 }

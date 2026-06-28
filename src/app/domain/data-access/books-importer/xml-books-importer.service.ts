@@ -8,7 +8,6 @@ export class XmlBooksImporterService implements BooksImporter {
         const parser = new DOMParser();
         const doc = parser.parseFromString(text, 'application/xml');
         const bookNodes = Array.from(doc.getElementsByTagName('book'));
-        console.log(bookNodes)
 
         const books: BookInput[] = [];
         for (let i = 0; i < bookNodes.length; i++) {
@@ -26,9 +25,8 @@ export class XmlBooksImporterService implements BooksImporter {
             books.push(bookInput as BookInput)
 
         }
-        console.log(books)
-        return { books };
 
+        return { books };
     }
 
     private readFileAsText(file: File): Promise<string> {

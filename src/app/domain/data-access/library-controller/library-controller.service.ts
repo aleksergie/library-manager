@@ -14,7 +14,6 @@ export class LibraryControllerService {
 
     public async importLibrary(file: File): Promise<ImportResult> {
         const importResult: ImportResult = await this.booksImporter.importFromFile(file);
-        console.log(importResult.books)
 
         if (importResult.books.length) {
             const books = importResult.books.map((res) => Book.create(res))

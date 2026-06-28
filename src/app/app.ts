@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { BooksList } from './ui/books-list';
-import { Toolbar } from './ui/toolbar';
+import { Toolbar } from './ui/toolbar/toolbar';
 
 @Component({
   imports: [RouterModule, BooksList, Toolbar],
