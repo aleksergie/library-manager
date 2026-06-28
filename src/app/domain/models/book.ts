@@ -11,7 +11,7 @@ export class Book {
   }
 }
 
-export type BookInput = Exclude<Book, 'id'>;
+export type BookInput = Omit<Book, 'id'>;
 
 export interface ImportResult {
   books: BookInput[];

@@ -37,7 +37,8 @@ export class LibraryControllerService {
   }
 
   public updateBook(input: BookInput, id: string): void {
-    this.store.updateBook(input, id);
+    const book = Book.create(input);
+    this.store.updateBook(book, id);
   }
 
   public toggleSorting(): void {

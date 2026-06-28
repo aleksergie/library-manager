@@ -1,5 +1,5 @@
 import { Injectable, computed, inject, signal } from '@angular/core';
-import { Book } from '@domain/models';
+import { Book, BookInput } from '@domain/models';
 import { FilterService, SortService } from '@domain/utils';
 
 @Injectable({ providedIn: 'root' })
@@ -39,9 +39,9 @@ export class LibraryStore {
     this._books.update((books) => [...books, book]);
   }
 
-  public updateBook(updatedBook: Book): void {
+  public updateBook(updatedBook: Book, id: string): void {
     this._books.update((books) =>
-      books.map((book) => (book.id === updatedBook.id ? updatedBook : book)),
+      books.map((book) => (book.id === id ? updatedBook : book)),
     );
   }
 
