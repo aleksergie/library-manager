@@ -1,62 +1,62 @@
-import { inject, Injectable } from "@angular/core";
-import { ImportResult, Book, BookInput } from "@domain/models";
-import { BOOKS_IMPORTER, BOOKS_EXPORTER } from "@domain/tokens";
-import { LibraryStore } from "../library-store";
+import { inject, Injectable } from '@angular/core';
+import { ImportResult, Book, BookInput } from '@domain/models';
+import { BOOKS_IMPORTER, BOOKS_EXPORTER } from '@domain/tokens';
+import { LibraryStore } from '../library-store';
 
 @Injectable({ providedIn: 'root' })
 export class LibraryControllerService {
-    private readonly store = inject(LibraryStore);
-    private readonly booksImporter = inject(BOOKS_IMPORTER);
-    private readonly booksExporter = inject(BOOKS_EXPORTER);
+  private readonly store = inject(LibraryStore);
+  private readonly booksImporter = inject(BOOKS_IMPORTER);
+  private readonly booksExporter = inject(BOOKS_EXPORTER);
 
-    readonly filteredBooks = this.store.filteredBooks;
-    readonly isSorted = this.store.isSorted;
+  readonly filteredBooks = this.store.filteredBooks;
+  readonly isSorted = this.store.isSorted;
 
-    public async importLibrary(file: File): Promise<ImportResult> {
-        const importResult: ImportResult = await this.booksImporter.importFromFile(file);
+  public async importLibrary(file: File): Promise<ImportResult> {
+    const importResult: ImportResult = await this.booksImporter.importFromFile(file);
 
-        if (importResult.books.length) {
-            const books = importResult.books.map((res) => Book.create(res))
-            this.store.setBooks(books);
-        }
-
-        return importResult;
+    if (importResult.books.length) {
+      const books = importResult.books.map((res) => Book.create(res));
+      this.store.setBooks(books);
     }
 
-    public search(query: string): void {
-        this.store.setSearchQuery(query);
-    }
+    return importResult;
+  }
 
-    public addBook(input: BookInput): void {
-        const book = Book.create(input);
-        this.store.addBook(book);
-    }
+  public search(query: string): void {
+    this.store.setSearchQuery(query);
+  }
 
-    public removeBook(id: string): void {
-        this.store.removeBook(id);
-    }
+  public addBook(input: BookInput): void {
+    const book = Book.create(input);
+    this.store.addBook(book);
+  }
 
-    public updateBook(input: BookInput, id: string): void {
-        this.store.updateBook(input, id);
-    }
+  public removeBook(id: string): void {
+    this.store.removeBook(id);
+  }
 
-    public toggleSorting(): void {
-        this.store.toggleSort()
-    }
+  public updateBook(input: BookInput, id: string): void {
+    this.store.updateBook(input, id);
+  }
 
-    public exportLibrary(): void {
-        const blob = this.booksExporter.exportBooks(this.store.filteredBooks());
-        this.triggerDownload(blob, 'library.xml');
-    }
+  public toggleSorting(): void {
+    this.store.toggleSort();
+  }
 
-    private triggerDownload(blob: Blob, fileName: string): void {
-        const url = URL.createObjectURL(blob);
-        const link = document.createElement('a');
-        link.href = url;
-        link.download = fileName;
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
-        URL.revokeObjectURL(url);
-    }
+  public exportLibrary(): void {
+    const blob = this.booksExporter.exportBooks(this.store.filteredBooks());
+    this.triggerDownload(blob, 'library.xml');
+  }
+
+  private triggerDownload(blob: Blob, fileName: string): void {
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = fileName;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    URL.revokeObjectURL(url);
+  }
 }

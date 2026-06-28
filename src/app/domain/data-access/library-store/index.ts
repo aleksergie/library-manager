@@ -1,1 +1,1 @@
-export * from './library-store.service'
+export * from './library-store.service';

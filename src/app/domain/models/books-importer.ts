@@ -1,5 +1,5 @@
-import { ImportResult } from "./book";
+import { ImportResult } from './book';
 
 export interface BooksImporter {
-    importFromFile(file: File): Promise<ImportResult>;
+  importFromFile(file: File): Promise<ImportResult>;
 }

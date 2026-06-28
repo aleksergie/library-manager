@@ -1,1 +1,1 @@
-export * from './library-controller.service'
+export * from './library-controller.service';

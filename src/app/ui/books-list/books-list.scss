@@ -1,80 +1,80 @@
 .empty-state {
-    text-align: center;
-    padding: 4rem 2rem;
-    background: var(--bg-surface);
-    border-radius: var(--border-radius);
-    border: 2px dashed var(--border-color);
+  text-align: center;
+  padding: 4rem 2rem;
+  background: var(--bg-surface);
+  border-radius: var(--border-radius);
+  border: 2px dashed var(--border-color);
 
-    .empty-icon {
-        font-size: 4rem;
-        margin-bottom: 2rem;
-        opacity: 0.5;
-    }
+  .empty-icon {
+    font-size: 4rem;
+    margin-bottom: 2rem;
+    opacity: 0.5;
+  }
 
-    h2 {
-        font-size: 1.5rem;
-        margin-bottom: 0.5rem;
-    }
+  h2 {
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+  }
 
-    p {
-        color: var(--text-secondary);
-    }
+  p {
+    color: var(--text-secondary);
+  }
 }
 
 .books-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    gap: 1.5rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.5rem;
 }
 
 .book-card {
-    background: var(--bg-surface);
-    border: 1px solid var(--border-color);
-    border-radius: var(--border-radius);
-    padding: 1.5rem;
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    transition: var(--transition);
+  background: var(--bg-surface);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius);
+  padding: 1.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  transition: var(--transition);
 
-    &:hover {
-        transform: translateY(-2px);
-        background: linear-gradient(to bottom right, var(--bg-surface), var(--bg-surface-hover));
-    }
+  &:hover {
+    transform: translateY(-2px);
+    background: linear-gradient(to bottom right, var(--bg-surface), var(--bg-surface-hover));
+  }
 }
 
 .book-info {
-    flex: 1;
-    min-width: 0;
+  flex: 1;
+  min-width: 0;
 
-    .book-title {
-        font-size: 1.1rem;
-        font-weight: 600;
-        margin-bottom: 0.25rem;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-    }
+  .book-title {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: 0.25rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
 
-    .book-author {
-        color: var(--text-secondary);
-        font-size: 0.9rem;
-        margin-bottom: 1rem;
-    }
+  .book-author {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    margin-bottom: 1rem;
+  }
 }
 
 .badge {
-    display: inline-block;
-    padding: 0.2rem 0.6rem;
-    border-radius: 20px;
-    background: rgba(56, 189, 248, 0.1);
-    color: var(--accent-color);
-    font-size: 0.75rem;
-    font-weight: 500;
+  display: inline-block;
+  padding: 0.2rem 0.6rem;
+  border-radius: 20px;
+  background: rgba(56, 189, 248, 0.1);
+  color: var(--accent-color);
+  font-size: 0.75rem;
+  font-weight: 500;
 }
 
 .book-actions {
-    display: flex;
-    gap: 0.25rem;
-    margin-left: 1rem;
+  display: flex;
+  gap: 0.25rem;
+  margin-left: 1rem;
 }

@@ -1,4 +1,8 @@
-import { ApplicationConfig, provideBrowserGlobalErrorListeners, provideZonelessChangeDetection } from '@angular/core';
+import {
+  ApplicationConfig,
+  provideBrowserGlobalErrorListeners,
+  provideZonelessChangeDetection,
+} from '@angular/core';
 import { provideRouter } from '@angular/router';
 import { appRoutes } from './app.routes';
 import { BOOKS_EXPORTER, BOOKS_IMPORTER } from './domain/tokens';
@@ -12,5 +16,5 @@ export const appConfig: ApplicationConfig = {
     provideRouter(appRoutes),
     { provide: BOOKS_IMPORTER, useClass: XmlBooksImporterService },
     { provide: BOOKS_EXPORTER, useClass: XmlBooksExporterService },
-  ]
+  ],
 };

@@ -1,1 +1,1 @@
-export * from './xml-books-importer.service'
+export * from './xml-books-importer.service';

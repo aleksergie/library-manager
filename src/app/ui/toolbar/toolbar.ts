@@ -11,29 +11,34 @@ import { BookModal } from '../book-modal/book-modal';
       <div class="logo">
         <h1>Library Manager</h1>
       </div>
-      
+
       <div class="actions">
         <input
-          type="search" 
-          placeholder="Search by title..." 
+          type="search"
+          placeholder="Search by title..."
           class="search-input"
           (input)="onSearch($event)"
         />
 
-        <button class="btn btn-outline" (click)="toggleSort()" [disabled]="isEmpty()" [class.active]="isSorted()">
+        <button
+          class="btn btn-outline"
+          (click)="toggleSort()"
+          [disabled]="isEmpty()"
+          [class.active]="isSorted()"
+        >
           <span class="icon">↕</span> Sort
         </button>
-        
+
         <div class="divider"></div>
 
         <div class="file-actions">
-           <button class="btn btn-primary" (click)="formModal.open()">
-          <span class="icon">+</span> Add Book
-        </button>
+          <button class="btn btn-primary" (click)="formModal.open()">
+            <span class="icon">+</span> Add Book
+          </button>
 
           <label class="btn btn-outline">
             <span class="icon">↑</span> Import
-              <input type="file" accept=".xml" (change)="onFileSelected($event)" hidden />
+            <input type="file" accept=".xml" (change)="onFileSelected($event)" hidden />
           </label>
           <button class="btn btn-outline" [disabled]="isEmpty()" (click)="exportLibrary()">
             <span class="icon">↓</span> Export
@@ -43,18 +48,18 @@ import { BookModal } from '../book-modal/book-modal';
       <div #importPopover popover="manual" class="popover">
         <span class="popover-content">{{ popoverMessage() }}</span>
       </div>
-
     </header>
     <app-book-form #formModal></app-book-form>
   `,
-  styleUrls: ['./toolbar.scss']
+  styleUrls: ['./toolbar.scss'],
 })
 export class Toolbar {
-  private readonly popoverElement: Signal<ElementRef<HTMLDivElement>> = viewChild.required('importPopover');
+  private readonly popoverElement: Signal<ElementRef<HTMLDivElement>> =
+    viewChild.required('importPopover');
   private controller = inject(LibraryControllerService);
 
-  readonly isSorted = this.controller.isSorted
-  readonly isEmpty = computed(() => !this.controller.filteredBooks().length)
+  readonly isSorted = this.controller.isSorted;
+  readonly isEmpty = computed(() => !this.controller.filteredBooks().length);
   readonly popoverMessage = signal<string>('');
   private popoverTimeout: ReturnType<typeof setTimeout> | null = null;
 
@@ -74,11 +79,11 @@ export class Toolbar {
   }
 
   protected toggleSort(): void {
-    this.controller.toggleSorting()
+    this.controller.toggleSorting();
   }
 
   protected exportLibrary(): void {
-    this.controller.exportLibrary()
+    this.controller.exportLibrary();
   }
 
   private showPopover(message: string): void {
@@ -88,8 +93,8 @@ export class Toolbar {
     popover.showPopover();
 
     if (this.popoverTimeout) {
-      clearTimeout(this.popoverTimeout)
-    };
+      clearTimeout(this.popoverTimeout);
+    }
 
     this.popoverTimeout = setTimeout(() => {
       popover.hidePopover();
@@ -104,10 +109,10 @@ export class Toolbar {
     try {
       const importResult = await this.controller.importLibrary(input.files![0]);
       if (!importResult.books.length) {
-        throw new Error('Invalid file')
+        throw new Error('Invalid file');
       }
     } catch (err) {
-      this.showPopover('Invalid file. Please try to import non-empty one.')
+      this.showPopover('Invalid file. Please try to import non-empty one.');
     } finally {
       this.resetInputValue(input);
     }
