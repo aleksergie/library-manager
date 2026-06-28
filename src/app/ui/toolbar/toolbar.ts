@@ -1,5 +1,5 @@
-import { Component, computed, ElementRef, inject, Signal, signal, viewChild, WritableSignal } from '@angular/core';
-import { LibraryControllerService } from '../../domain/data-access/library-controller';
+import { Component, computed, ElementRef, inject, Signal, signal, viewChild } from '@angular/core';
+import { LibraryControllerService } from '@domain/data-access/library-controller';
 import { BookModal } from '../book-modal/book-modal';
 
 @Component({
@@ -76,7 +76,7 @@ export class Toolbar {
         throw new Error('Invalid file')
       }
     } catch (err) {
-      this.showPopover('Invalid file. Please try to import non-empty and valid one.')
+      this.showPopover('Invalid file. Please try to import non-empty one.')
     } finally {
       this.resetInputValue(input);
     }

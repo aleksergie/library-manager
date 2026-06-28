@@ -1,7 +1,8 @@
 import { Component, inject } from "@angular/core";
-import { LibraryControllerService } from "../../domain/data-access/library-controller";
-import { Book } from "../../domain/models";
+import { LibraryControllerService } from "@domain/data-access/library-controller";
+import { Book } from "@domain/models";
 import { BookModal } from "../book-modal/book-modal";
+
 
 @Component({
   selector: 'app-books-list',
@@ -39,7 +40,7 @@ import { BookModal } from "../book-modal/book-modal";
   styleUrl: './books-list.scss'
 })
 export class BooksList {
-  readonly libraryController = inject(LibraryControllerService)
+  readonly libraryController: LibraryControllerService = inject(LibraryControllerService)
 
   protected editBook(book: Book, editModal: BookModal): void {
     editModal.open(book);

@@ -1,7 +1,7 @@
 import { inject, Injectable } from "@angular/core";
-import { BOOKS_EXPORTER, BOOKS_IMPORTER } from "../../tokens";
-import { LibraryStore } from "../library-store/library-store.service";
-import { Book, BookInput, ImportResult } from "../../models";
+import { ImportResult, Book, BookInput } from "@domain/models";
+import { BOOKS_IMPORTER, BOOKS_EXPORTER } from "@domain/tokens";
+import { LibraryStore } from "../library-store";
 
 @Injectable({ providedIn: 'root' })
 export class LibraryControllerService {

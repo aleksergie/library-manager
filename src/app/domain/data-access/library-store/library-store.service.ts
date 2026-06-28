@@ -1,6 +1,6 @@
 import { Injectable, computed, inject, signal } from '@angular/core';
-import { Book } from '../../models';
-import { FilterService, SortService } from '../../utils';
+import { Book } from '@domain/models';
+import { FilterService, SortService } from '@domain/utils';
 
 @Injectable({ providedIn: 'root' })
 export class LibraryStore {

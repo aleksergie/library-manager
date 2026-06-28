@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { Book, BooksExporter } from "../../models";
+import { Book, BooksExporter } from "@domain/models";
 
 @Injectable()
 export class XmlBooksExporterService implements BooksExporter {

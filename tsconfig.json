@@ -1,6 +1,7 @@
 {
   "compilerOptions": {
     "rootDir": ".",
+    "baseUrl": "./",
     "sourceMap": true,
     "declaration": false,
     "moduleResolution": "bundler",
@@ -15,7 +16,11 @@
     ],
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
-    "paths": {},
+    "paths": {
+      "@domain/*": [
+        "src/app/domain/*"
+      ]
+    },
     "strict": true,
     "noImplicitOverride": true,
     "noPropertyAccessFromIndexSignature": true,
