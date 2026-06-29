@@ -21,7 +21,7 @@ To start the development server and open the app, run:
 ```sh
 npm start
 ```
-*(This uses the underlying `nx serve library-for-tests` command)*
+*(This uses the underlying `nx run library-manager:serve:development` command)*
 
 Navigate to `http://localhost:4200/` in your browser. The app will automatically reload if you change any of the source files.
 
