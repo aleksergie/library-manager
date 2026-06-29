@@ -1,29 +1,62 @@
 # LibraryManager
 
+A local library management application built with Angular and Nx.
+
+## Getting Started
+
+Follow these steps to run the application from scratch on your local machine:
+
+### 1. Install dependencies
+
+Run the following command to install all necessary packages:
+
+```sh
+npm install
+```
+
+### 2. Run the application
+
+To start the development server and open the app, run:
+
+```sh
+npm start
+```
+*(This uses the underlying `nx serve library-for-tests` command)*
+
+Navigate to `http://localhost:4200/` in your browser. The app will automatically reload if you change any of the source files.
+
+### 3. Run the tests
+
+To execute the unit test suites we've set up, run:
+
+```sh
+npm run test
+```
+
+---
+
+## Nx Workspace Features
+
 <a alt="Nx logo" href="https://nx.dev" target="_blank" rel="noreferrer"><img src="https://raw.githubusercontent.com/nrwl/nx/master/images/nx-logo.png" width="45"></a>
 
 ✨ Your new, shiny [Nx workspace](https://nx.dev) is ready ✨.
 
-[Learn more about this workspace setup and its capabilities](https://nx.dev/getting-started/tutorials/angular-standalone-tutorial?utm_source=nx_project&amp;utm_medium=readme&amp;utm_campaign=nx_projects) or run `npx nx graph` to visually explore what was created. Now, let's get you up to speed!
-
-## Run tasks
-
-To run the dev server for your app, use:
+To run the dev server for your app via Nx directly, use:
 
 ```sh
-npx nx serve library-manager
+npx nx serve library-for-tests
 ```
 
 To create a production bundle:
 
 ```sh
-npx nx build library-manager
+npx nx build library-for-tests
 ```
 
 To see all available targets to run for a project, run:
 
 ```sh
-npx nx show project library-manager
+npx nx show project library-for-tests
 ```
 
 These targets are either [inferred automatically](https://nx.dev/concepts/inferred-tasks?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) or defined in the `project.json` or `package.json` files.
