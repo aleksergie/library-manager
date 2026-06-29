@@ -2,19 +2,19 @@ import { TestBed } from '@angular/core/testing';
 import { XmlBooksImporterService } from './index';
 
 describe('XmlBooksImporterService', () => {
-    let service: XmlBooksImporterService;
+  let service: XmlBooksImporterService;
 
-    beforeEach(() => {
-        TestBed.configureTestingModule({
-            providers: [XmlBooksImporterService],
-        });
-        service = TestBed.inject(XmlBooksImporterService);
+  beforeEach(() => {
+    TestBed.configureTestingModule({
+      providers: [XmlBooksImporterService],
     });
+    service = TestBed.inject(XmlBooksImporterService);
+  });
 
-    it('should be created', () => {
-        expect(service).toBeTruthy();
-    })
-    describe('importFromFile', () => {
+  it('should be created', () => {
+    expect(service).toBeTruthy();
+  });
+  describe('importFromFile', () => {
     it('should parse valid XML file and return BookInputs', async () => {
       const xmlContent = `
         <library>
@@ -41,4 +41,4 @@ describe('XmlBooksImporterService', () => {
       expect(result.books.length).toBe(0);
     });
   });
-})
+});
